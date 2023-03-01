@@ -3,8 +3,10 @@
 from fractions import Fraction
 from colorama import Fore
 
-find_the_value = input("choose one to find among 'cp' 'sp' 'profit' 'profit percentage' 'loss' 'loss percentage': ").lower()
-if find_the_value == "cp":
+find_the_value = input("choose one to find among\n '1.cp' '2.sp' '3.profit' '4.profit percentage' "
+                       "'5.loss'\n '6.loss percentage''7.loss%(gain%=loss%)''8.gain%(using false weight)"
+                       "'9.gain%(using % of false weight)''10.Gain% or loss%(using % of false weight): ").lower()
+if find_the_value == "1":
 
     find_profit = input("Select one input among 'Profit' and 'profit%' 'loss' 'loss%': ").lower()
     if find_profit == "profit":
@@ -53,7 +55,7 @@ if find_the_value == "cp":
             print(Fore.RED + "You Entered Invalid details please check once")
     else:
         print(Fore.RED+"Enter valid details")
-if find_the_value == "sp":
+if find_the_value == "2":
 
     find_profit = input("Select one input among 'Profit' and 'profit%' 'loss' 'loss%': ").lower()
     if find_profit == "profit":
@@ -102,7 +104,7 @@ if find_the_value == "sp":
             print(Fore.RED + "You Entered Invalid details please check once(cost price always greater than selling price)")
     else:
         print(Fore.RED+"Enter valid details")
-elif find_the_value == "profit":
+elif find_the_value == "3":
     sp = Fraction(input("Enter Selling price : RS."))
     cp = Fraction(input("Enter Cost price : RS. "))
     print("profit=selling price - cost price")
@@ -112,7 +114,7 @@ elif find_the_value == "profit":
     else:
         print(Fore.RED + "You Entered Invalid details please check once(selling price always greater than cost price)")
 
-elif find_the_value == "loss":
+elif find_the_value == "5":
     sp = Fraction(input("Enter Selling price : RS."))
     cp = Fraction(input("Enter Cost price : RS. "))
     print("profit=cost price - selling price")
@@ -121,7 +123,7 @@ elif find_the_value == "loss":
         print(Fore.YELLOW+"loss : RS."+str(loss))
     else:
         print(Fore.RED + "You Entered Invalid details please check once(cost price always greater than selling price)")
-elif find_the_value == "profit percentage":
+elif find_the_value == "4":
     sp = Fraction(input("Enter Selling price : RS."))
     cp = Fraction(input("Enter Cost price : RS. "))
     print("Profit Percentage=((selling price-cost price)/cost price)*100")
@@ -130,7 +132,7 @@ elif find_the_value == "profit percentage":
         print(Fore.YELLOW+"Profit Percentage : "+str(profit_percentage)+" %")
     else:
         print(Fore.RED + "You Entered Invalid details please check once(selling price always greater than cost price)")
-elif find_the_value == "loss percentage":
+elif find_the_value == "6":
     sp = Fraction(input("Enter Selling price : RS."))
     cp = Fraction(input("Enter Cost price : RS. "))
     print("loss Percentage=((cost price-selling price)/cost price)*100")
@@ -139,4 +141,40 @@ elif find_the_value == "loss percentage":
         print(Fore.YELLOW+"loss Percentage : "+str(loss_percentage)+" %")
     else:
         print(Fore.RED + "You Entered Invalid details please check once(cost price always greater than selling price)")
+elif find_the_value == "7":
+    loss_percentage = Fraction(input("Enter  common loss and gain percentage (%): "))
+    print("if loss and gain percentages are same the loss occurs")
+    print("To find loss percentage while common percentage given we use")
+    print("loss%=(common gain and loss percentage/10)**2")
+    total_loss_percentage = float(round((loss_percentage/10)**2, 2))
+    print(Fore.YELLOW+"LOSS% : "+str(total_loss_percentage)+" %")
+elif find_the_value == "8":
+    true_weight = Fraction(input("Enter True Weight (in grams): "))
+    false_weight = Fraction(input("Enter False weight(in grams): "))
+    print("if we use false weight there is always a gain")
+    print("To find gain% we use :")
+    print("Gain%=((true weight-false weight)/(true weight)-(true weight-false weight))*100")
+    gain_percentage = float(round(((true_weight-false_weight)/((true_weight)-(true_weight-false_weight)))*100, 2))
+    print(Fore.YELLOW+"Gain percentage : "+str(gain_percentage)+" %")
+elif find_the_value == "9":
+    profit_percentage = Fraction(input("Enter profit percentage(x) (%): "))
+    false_weight_percentage = Fraction(input("Enter percentage of false weight which less than true weight(y) (%): "))
+    print("To find total gain percentage we use :")
+    print("gain%=((x+y)/(100-y))*100")
+    total_gain_percentage = float(round(((profit_percentage+false_weight_percentage)/(100-false_weight_percentage))*100, 2))
+    print(Fore.YELLOW+"Gain% : "+str(total_gain_percentage)+" %")
+elif find_the_value == "10":
+    loss_percentage = Fraction(input("Enter loss percentage(x) (%): "))
+    false_weight_percentage = Fraction(input("Enter percentage of false weight which less than true weight(y) (%): "))
+    print("To find total gain or loss percentage we use :")
+    print("gain% or loss%=((y-x)/(100-y))*100")
+    total_gain_or_loss_percentage = float(
+        round(((false_weight_percentage-loss_percentage) / (100 - false_weight_percentage)) * 100, 2))
+    if total_gain_or_loss_percentage > 0:
+        print(Fore.YELLOW + "Gain% : " + str(total_gain_or_loss_percentage) + " %")
+    elif total_gain_or_loss_percentage == 0:
+        print(Fore.YELLOW+"No Gain and No loss")
+    else:
+        total_gain_or_loss_percentage = total_gain_or_loss_percentage*(-1)
+        print(Fore.YELLOW + "loss% : " + str(total_gain_or_loss_percentage) + " %")
 
